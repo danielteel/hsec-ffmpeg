@@ -22,10 +22,10 @@ async function main(){
     let ffmpegProcess=null;
     
     process.on('SIGTERM', ()=>{
-        if (ffmpegProcess){
-            ffmpegProcess.kill('SIGKILL');
-        }
         console.log('SIGTERM recieved, killing ffmpeg child process');
+        if (ffmpegProcess){
+            console.log('Killed:',ffmpegProcess.kill());
+        }
     });
 
     function startFFMPEG(){
