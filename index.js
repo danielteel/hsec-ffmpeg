@@ -1,6 +1,6 @@
 const { connect } = require('./database');
 const fs = require('node:fs');
-const {spawn, exec} = require('node:child_process');
+const {spawn, execSync} = require('node:child_process');
 
 //process.env.FFMPEG_SECRET
 
@@ -15,6 +15,8 @@ const knexConfig =  {
     }
 };
 
+execSync('pkill -f ffmpeg');
+
 
 async function main(){
     let knex=null;
@@ -22,9 +24,7 @@ async function main(){
      
     process.on('SIGTERM', ()=>{
         console.log('SIGTERM recieved, killing ffmpeg child process');
-        if (ffmpegProcess){
-            ffmpegProcess.kill();
-        }
+        execSync('pkill -f ffmpeg');
         process.exit();
     });
 
