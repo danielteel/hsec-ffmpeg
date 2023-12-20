@@ -115,7 +115,7 @@ function spawnFFMPEG(formats){
     ]
     const child = spawn('ffmpeg', args);
 
-    child.stderr.on('data', (data) => console.log(data.toString()));
+    child.stderr.on('data', (data) => null);
     child.stdout.on('data', (data) => null);
 
     return child;
