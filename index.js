@@ -25,6 +25,7 @@ async function main(){
         if (ffmpegProcess){
             ffmpegProcess.stdin.write('\x03');
         }
+        process.exit();
     });
 
     function startFFMPEG(){
