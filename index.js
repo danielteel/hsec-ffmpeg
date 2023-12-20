@@ -30,7 +30,7 @@ async function main(){
     });
 
     function startFFMPEG(){
-        //read ffmpeg details from db 
+        //read ffmpeg details from db
         const formats = [
             {type: 'jpg', file: 'il.jpg', title:'I-Lo', w: 640, h:360, qual: 13, fps: 0.66},///10 kbps
             {type: 'jpg', file: 'ih.jpg', title:'I-Hi', w: 1280, h:720, qual: 13, fps: 0.66},//33 kbps
