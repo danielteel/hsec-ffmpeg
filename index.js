@@ -18,7 +18,7 @@ const knexConfig =  {
 try{
     execSync('killall ffmpeg');
 }catch{}
-
+ 
 
 async function main(){
     let knex=null;
