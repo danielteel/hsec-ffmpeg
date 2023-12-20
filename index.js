@@ -28,7 +28,7 @@ async function main(){
             ffmpegProcess.stdin.write('q');
             ffmpegProcess.stdin.end();
             ffmpegProcess.kill();
-            execS('kill -9 '+ffmpegProcess.pid);
+            exec('kill -9 '+ffmpegProcess.pid);
         }
     });
 
