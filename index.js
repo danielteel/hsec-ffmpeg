@@ -25,7 +25,6 @@ async function main(){
         console.log('SIGTERM recieved, killing ffmpeg child process');
         if (ffmpegProcess){
             ffmpegProcess.stdin.end();
-            console.log('Killed:',ffmpegProcess.kill());
         }
     });
 
