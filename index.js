@@ -117,7 +117,7 @@ function spawnFFMPEG(formats){
         '-i', process.env.FFMPEG_INPUT,
         ...outputArgs,
     ]
-    const child = exec('ffmpeg', args);
+    const child = spawn('ffmpeg', args, {detached: true});
 
     child.stderr.on('data', (data) => null);
     child.stdout.on('data', (data) => null);
