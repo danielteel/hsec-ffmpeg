@@ -1,6 +1,6 @@
 const { connect } = require('./database');
 const fs = require('node:fs');
-const {spawn} = require('node:child_process');
+const {spawn, execSync} = require('node:child_process');
 
 //process.env.FFMPEG_SECRET
 
@@ -26,6 +26,8 @@ async function main(){
         if (ffmpegProcess){
             ffmpegProcess.stdin.write('q');
             ffmpegProcess.stdin.end();
+            ffmpegProcess.kill();
+            execSync('kill -9 '+ffmpegProcess.pid);
         }
     });
 
