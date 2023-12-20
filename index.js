@@ -19,7 +19,7 @@ const knexConfig =  {
 async function main(){
     let knex=null;
     let ffmpegProcess=null;
-    
+     
     process.on('SIGTERM', ()=>{
         console.log('SIGTERM recieved, killing ffmpeg child process');
         if (ffmpegProcess){
