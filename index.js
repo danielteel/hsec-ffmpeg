@@ -20,6 +20,14 @@ const knexConfig =  {
 async function main(){
     let knex=null;
     let ffmpegProcess=null;
+    
+    process.on('SIGTERM', ()=>{
+        if (ffmpegProcess){
+            ffmpegProcess.kill('SIGKILL');
+        }
+        console.log('SIGTERM recieved, killing ffmpeg child process');
+    });
+
     function startFFMPEG(){
         //read ffmpeg details from db
         const formats = [
@@ -29,7 +37,7 @@ async function main(){
             {type: 'hls', file: 'best.m3u8', title:'V-Hi', w: 1280, h: 720, qual: 24, fps: 4, block: 2},//188 kbps
         ];
 
-        
+
         ffmpegProcess=spawnFFMPEG(formats);
         console.log('ffmpeg child process started');
     
