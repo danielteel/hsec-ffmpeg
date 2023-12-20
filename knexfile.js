@@ -8,11 +8,5 @@ module.exports = {
         user:     process.env.DB_USER,
         password: process.env.DB_PASS
       },
-    },
-  
-    test: {
-      client: 'sqlite3',
-      connection: ":memory:",
-      useNullAsDefault:true
     }
   }
