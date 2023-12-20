@@ -15,7 +15,7 @@ const knexConfig =  {
     }
 };
 
-execSync('pkill -f ffmpeg');
+execSync('killall ffmpeg');
 
 
 async function main(){
@@ -24,7 +24,7 @@ async function main(){
      
     process.on('SIGTERM', ()=>{
         console.log('SIGTERM recieved, killing ffmpeg child process');
-        execSync('pkill -f ffmpeg');
+        execSync('killall ffmpeg');
         process.exit();
     });
 
