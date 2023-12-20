@@ -120,4 +120,4 @@ function spawnFFMPEG(formats){
     child.stdout.on('data', (data) => null);
 
     return child;
-}
+} 
