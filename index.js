@@ -16,7 +16,6 @@ const knexConfig =  {
 };
 
 
-
 async function main(){
     let knex=null;
     let ffmpegProcess=null;
