@@ -23,7 +23,7 @@ async function main(){
     process.on('SIGTERM', ()=>{
         console.log('SIGTERM recieved, killing ffmpeg child process');
         if (ffmpegProcess){
-            ffmpegProcess.stdin.write('\x03');
+            ffmpegProcess.kill();
         }
         process.exit();
     });
