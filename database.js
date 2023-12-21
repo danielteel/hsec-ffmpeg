@@ -54,7 +54,7 @@ function waitForTableToExist(tableName){
 
     async function checkIfExists(){
         if (await knex.schema.hasTable(tableName)){
-            resolveFn();
+            setTimeout(()=>resolveFn(), 5000);//allow a little time for table to be seeded
         }else{
             setTimeout(checkIfExists, 2000);
         }
