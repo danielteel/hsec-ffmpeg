@@ -15,7 +15,7 @@ const knexConfig =  {
     }
 };
 
-const expressPort = 4009;
+const expressPort = process.env.FFMPEG_PORT;
  
 
 async function main(){
@@ -62,7 +62,7 @@ async function main(){
     app.use(cors());
     app.use(express.json());
 
-    app.post('/update/:secret', async (req, res)=>{
+    app.get('/update/:secret', async (req, res)=>{
         try {
             if (req.params.secret && req.params.secret === process.env.FFMPEG_SECRET) {
                 console.log('updating formats');
