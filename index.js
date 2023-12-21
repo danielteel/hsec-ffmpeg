@@ -71,6 +71,7 @@ async function main(){
         }catch (e){
             console.log('ERROR: /update',e);
         }
+        res.status(200).json({status: 'success'});
     });
 
     app.listen(process.env.FFMPEG_PORT, () => {
