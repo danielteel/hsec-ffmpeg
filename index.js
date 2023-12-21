@@ -55,12 +55,11 @@ async function main(){
 
     console.log('starting up...');
     knex = await connect(knexConfig);
-    console.log('database connected');
-
+    console.log('database connected, waiting for formats table...');
     await waitForTableToExist('formats');
+    console.log('formats table exists');
 
-
-    startFFMPEG(formats);
+    startFFMPEG();
 
     //Start express server
     const app=express();
