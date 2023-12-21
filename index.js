@@ -39,11 +39,18 @@ async function main(){
             execSync('killall ffmpeg', {stdio:'pipe'});
         }catch{}
         
-        const formats = await knex('formats').select('*');
-        ffmpegProcess=spawnFFMPEG(formats);
-        ffmpegProcess.on('exit', unexpectedExitFFMPEG);
+        ffmpegProcess=null;
 
-        console.log('ffmpeg child process started');
+        const formats = await knex('formats').select('*');
+
+        if (formats.length){
+            ffmpegProcess=spawnFFMPEG(formats);
+            ffmpegProcess.on('exit', unexpectedExitFFMPEG);
+
+            console.log('ffmpeg child process started');
+        }else{
+            console.log('no formats specified, not starting ffmpeg');
+        }
     }
 
     console.log('starting up...');
