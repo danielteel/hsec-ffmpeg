@@ -1,8 +1,8 @@
 const { connect } = require('./database');
 const fs = require('node:fs');
 const {spawn, execSync} = require('node:child_process');
-
-//process.env.FFMPEG_SECRET
+const express=require('express');
+const cors = require('cors');
 
 const knexConfig =  {
     client: 'postgresql',
@@ -15,9 +15,7 @@ const knexConfig =  {
     }
 };
 
-try{
-    execSync('killall ffmpeg');
-}catch{}
+const expressPort = 4009;
  
 
 async function main(){
@@ -27,28 +25,27 @@ async function main(){
     process.on('SIGTERM', ()=>{
         console.log('SIGTERM recieved, killing ffmpeg child process');
         try{
-            execSync('killall ffmpeg');
+            execSync('killall ffmpeg', {stdio:'pipe'});
         }catch{}
         process.exit();
     });
 
-    function startFFMPEG(){
-        //read ffmpeg details from db
-        const formats = [
-            {type: 'jpg', file: 'il.jpg', title:'I-Lo', w: 640, h:360, qual: 13, fps: 0.66},///10 kbps
-            {type: 'jpg', file: 'ih.jpg', title:'I-Hi', w: 1280, h:720, qual: 13, fps: 0.66},//33 kbps
-            {type: 'hls', file: 'hqll.m3u8', title:'V-Lo', w: 640, h: 360, qual: 24, fps: 4, block: 2},//50 kbps
-            {type: 'hls', file: 'best.m3u8', title:'V-Hi', w: 1280, h: 720, qual: 24, fps: 4, block: 2},//188 kbps
-        ];
+    function unexpectedExitFFMPEG(){
+        console.log('ffmpeg child process exited');
+        startFFMPEG();
+    }
 
-
+    async function startFFMPEG(){
+        if (ffmpegProcess) ffmpegProcess.off('exit', unexpectedExitFFMPEG);
+        try{
+            execSync('killall ffmpeg', {stdio:'pipe'});
+        }catch{}
+        
+        const formats = await knex('formats').select('*');
         ffmpegProcess=spawnFFMPEG(formats);
+        ffmpegProcess.on('exit', unexpectedExitFFMPEG);
+
         console.log('ffmpeg child process started');
-    
-        ffmpegProcess.on('exit', (code) => {
-            console.log('ffmpeg child process exited');
-            setTimeout(startFFMPEG, 2000);
-        });
     }
 
     console.log('starting up...');
@@ -56,7 +53,31 @@ async function main(){
     knex = await connect(knexConfig);
     console.log('database connected');
 
-    startFFMPEG();
+    let formats = await knex('formats').select('*');
+
+    startFFMPEG(formats);
+
+    //Start express server
+    const app=expres();
+    app.use(cors());
+    app.use(express.json());
+
+    app.post('/update/:secret', async (req, res)=>{
+        try {
+            if (req.params.secret && req.params.secret === process.env.FFMPEG_SECRET) {
+                console.log('updating formats');
+                startFFMPEG();
+            }else{
+                console.log('invalid update secret');
+            }
+        }catch (e){
+            console.log('ERROR: /update',e);
+        }
+    });
+
+    app.listen(expressPort, () => {
+        console.log('server listening on', expressPort);
+    });
 }
 
 main();
