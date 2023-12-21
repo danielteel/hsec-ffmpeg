@@ -1,4 +1,4 @@
-const { connect } = require('./database');
+const { connect, waitForTableToExist } = require('./database');
 const fs = require('node:fs');
 const {spawn, execSync} = require('node:child_process');
 const express=require('express');
@@ -54,11 +54,11 @@ async function main(){
     }
 
     console.log('starting up...');
-
     knex = await connect(knexConfig);
     console.log('database connected');
 
-    let formats = await knex('formats').select('*');
+    await waitForTableToExist('formats');
+
 
     startFFMPEG(formats);
 

@@ -48,4 +48,21 @@ function connect(knexProfile, onConnect, maxAttempts=60, logOut=console.log){
     return promise;
 }
 
-module.exports = {connect, getKnex};
+function waitForTableToExist(tableName){
+    let resolveFn, rejectFn;
+    const promise = new Promise((resolve, reject) => { resolveFn = resolve; rejectFn = reject; });
+
+    async function checkIfExists(){
+        if (await knex.schema.hasTable(tableName)){
+            resolveFn();
+        }else{
+            setTimeout(checkIfExists, 2000);
+        }
+    }
+
+    checkIfExists();
+
+    return promise;
+}
+
+module.exports = {connect, getKnex, waitForTableToExist};
