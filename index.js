@@ -58,7 +58,7 @@ async function main(){
     startFFMPEG(formats);
 
     //Start express server
-    const app=expres();
+    const app=express();
     app.use(cors());
     app.use(express.json());
 
