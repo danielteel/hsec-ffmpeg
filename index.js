@@ -14,8 +14,6 @@ const knexConfig =  {
         password: process.env.DB_PASS
     }
 };
-
-const expressPort = process.env.FFMPEG_PORT;
  
 
 async function main(){
@@ -75,8 +73,8 @@ async function main(){
         }
     });
 
-    app.listen(expressPort, () => {
-        console.log('server listening on', expressPort);
+    app.listen(process.env.FFMPEG_PORT, () => {
+        console.log('server listening on', process.env.FFMPEG_PORT);
     });
 }
 
