@@ -114,7 +114,7 @@ function spawnFFMPEG(formats){
     }
     
     try{
-        fs.rmSync(process.env.CAM_DIR, {recursive: true, force: true, maxRetries: 10, retryDelay: 500});
+        fs.rmSync(process.env.CAM_DIR, {recursive: true, force: true});
     }catch(e){
         console.log('error trying to delete '+process.env.CAM_DIR);
     }
