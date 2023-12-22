@@ -70,7 +70,7 @@ async function main(){
         try {
             if (req.params.secret && req.params.secret === process.env.FFMPEG_SECRET) {
                 console.log('updating formats');
-                startFFMPEG();
+                setImmediate(startFFMPEG);
             }else{
                 console.log('invalid update secret');
             }
