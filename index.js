@@ -92,7 +92,7 @@ main();
 function spawnFFMPEG(formats){
     function buildArgs(w, h, filter, qual, fps, blockSeconds, fileName){
         let addFilter = [];
-        if (filter) addFilter=['-filter:v', filter];
+        if (typeof filter==='string' && filter.trim().length!==0) addFilter=['-filter:v', filter];
         return [
             '-s', String(w)+'x'+String(h),
             '-pix_fmt', 'yuv420p',
@@ -111,7 +111,7 @@ function spawnFFMPEG(formats){
     }
     function buildArgsJpg(w, h, filter, qual, fps, fileName){
         let addFilter = [];
-        if (filter) addFilter=['-filter:v', filter];
+        if (typeof filter==='string' && filter.trim().length!==0) addFilter=['-filter:v', filter];
         return [
             '-s', String(w)+'x'+String(h),
             ...addFilter,
