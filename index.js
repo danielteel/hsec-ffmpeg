@@ -99,6 +99,7 @@ function spawnFFMPEG(formats){
             '-fflags', '+nobuffer',
             '-pix_fmt', 'yuv420p',
             ...addFilter,
+            '-rc-lookahead:v','0',
             '-r', String(fps),
             '-g', String(fps*blockSeconds),
             '-c:v', 'libx264',
