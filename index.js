@@ -119,6 +119,7 @@ function spawnFFMPEG(formats){
             '-muxdelay','0',
             '-fflags', '+nobuffer',
             ...addFilter,
+            '-rc-lookahead:v','0',
             '-g:v', '1',
             '-r', String(fps),
             '-qscale', String(qual),
