@@ -152,6 +152,7 @@ function spawnFFMPEG(formats){
         }
     }
     const args = [
+        '-f','v4l2',
         '-max_delay','0',
         '-max_probe_packets', '1',
         '-loglevel', 'error',
