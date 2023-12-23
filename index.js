@@ -115,7 +115,7 @@ function spawnFFMPEG(formats){
         let addFilter = [];
         if (typeof filter==='string' && filter.trim().length!==0) addFilter=['-filter:v', filter];
         return [
-           // '-s', String(w)+'x'+String(h),
+            '-s', String(w)+'x'+String(h),
             '-muxdelay','0',
             '-fflags', '+nobuffer',
             ...addFilter,
@@ -154,6 +154,7 @@ function spawnFFMPEG(formats){
     }
     const args = [
         '-max_delay','0',
+        '-thread_queue_size', '2048',
         '-max_probe_packets', '1',
         '-loglevel', 'error',
         '-i', process.env.FFMPEG_INPUT,
