@@ -94,8 +94,8 @@ function spawnFFMPEG(formats){
         const filter=['-filter:v', "crop=in_w/2:in_h/2:in_w/2:in_h/2"];
         return [
             //'-s', String(w)+'x'+String(h),
-            '-filter:v', "crop=in_w/2:in_h/2:in_w/2:in_h/2;format=yuv420p",
-
+            '-filter_complex', "crop=in_w/2:in_h/2:in_w/2:in_h/2;format=yuv420p",
+            '-vf', 'format=yuv420p',
             '-r', String(fps),
             '-g', String(fps*blockSeconds),
             '-c:v', 'libx264',
