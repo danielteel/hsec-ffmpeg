@@ -95,7 +95,7 @@ function spawnFFMPEG(formats){
         return [
             '-s', String(w)+'x'+String(h),
             '-pix_fmt', 'yuv420p',
-            '-filter:v', "crop=in_w/2:in_h/2:in_w/2:in_h/2",
+           // '-filter:v', "crop=in_w/2:in_h/2:in_w/2:in_h/2",
             '-r', String(fps),
             '-g', String(fps*blockSeconds),
             '-c:v', 'libx264',
