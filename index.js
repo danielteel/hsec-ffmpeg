@@ -91,8 +91,10 @@ main();
 
 function spawnFFMPEG(formats){
     function buildArgs(w, h, qual, fps, blockSeconds, fileName){
+        const filter=['-filter:v', "crop=in_w/2:in_h/2:in_w/2:in_h/2"];
         return [
             '-s', String(w)+'x'+String(h),
+            ...filter,
             '-vf', 'format=yuv420p',
             '-r', String(fps),
             '-g', String(fps*blockSeconds),
