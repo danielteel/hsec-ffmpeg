@@ -102,7 +102,7 @@ function spawnFFMPEG(formats){
             '-c:v', 'libx264',
             '-crf', String(qual),
             '-preset', 'ultrafast',
-            '-tune', 'zerolatency',
+            '-tune:v', 'zerolatency',
             '-hls_time', String(blockSeconds),
             '-hls_list_size', '2',
             '-hls_flags', 'delete_segments',
@@ -118,7 +118,7 @@ function spawnFFMPEG(formats){
             '-r', String(fps),
             '-qscale', String(qual),
             '-preset', 'ultrafast',
-            '-tune', 'zerolatency',
+            '-tune:v', 'zerolatency',
             '-y',
             '-update', '1',
             process.env.CAM_DIR+fileName
@@ -148,8 +148,11 @@ function spawnFFMPEG(formats){
         }
     }
     const args = [
+        '-max_delay','0',
+        '-max_probe_packets', '1',
+        '-muxdelay','0',
         '-loglevel', 'error',
-        '-fflags', 'nobuffer',
+        '-fflags', '+nobuffer',
         '-i', process.env.FFMPEG_INPUT,
         ...outputArgs,
     ]
