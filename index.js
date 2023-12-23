@@ -93,7 +93,7 @@ function spawnFFMPEG(formats){
     function buildArgs(w, h, qual, fps, blockSeconds, fileName){
         return [
             '-s', String(w)+'x'+String(h),
-            '-vf', 'format=yuv420p',
+            '-vf', 'format=mpjg',
             '-r', String(fps),
             '-g', String(fps*blockSeconds),
             '-c:v', 'libx264',
