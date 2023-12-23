@@ -117,6 +117,7 @@ function spawnFFMPEG(formats){
             '-s', String(w)+'x'+String(h),
             '-fflags', '+nobuffer',
             ...addFilter,
+            '-g:v', '1',
             '-r', String(fps),
             '-qscale', String(qual),
             '-preset', 'ultrafast',
