@@ -150,7 +150,7 @@ function spawnFFMPEG(formats){
         }
     }
     const args = [
-        '-threads', '3',
+        '-loglevel', 'error',
         '-i', process.env.FFMPEG_INPUT,
         ...outputArgs,
     ]
