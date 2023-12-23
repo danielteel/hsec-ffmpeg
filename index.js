@@ -93,6 +93,7 @@ function spawnFFMPEG(formats){
     function buildArgs(w, h, qual, fps, blockSeconds, fileName){
         return [
             '-s', String(w)+'x'+String(h),
+            '-f', 'v4l2',
             '-vf', 'format=yuv420p',
             '-r', String(fps),
             '-g', String(fps*blockSeconds),
