@@ -90,12 +90,13 @@ main();
 
 
 function spawnFFMPEG(formats){
-    function buildArgs(w, h, qual, fps, blockSeconds, fileName){
-        const filter=['-filter:v', "crop=in_w/2:in_h/2:in_w/2:in_h/2"];
+    function buildArgs(w, h, filter, qual, fps, blockSeconds, fileName){
+        let addFilter = [];
+        if (filter) addFilter=['-filter:v', filter];
         return [
             '-s', String(w)+'x'+String(h),
             '-pix_fmt', 'yuv420p',
-           // '-filter:v', "crop=in_w/2:in_h/2:in_w/2:in_h/2",
+            ...addFilter,
             '-r', String(fps),
             '-g', String(fps*blockSeconds),
             '-c:v', 'libx264',
@@ -108,9 +109,12 @@ function spawnFFMPEG(formats){
             process.env.CAM_DIR+fileName
         ]
     }
-    function buildArgsJpg(w, h, qual, fps, fileName){
+    function buildArgsJpg(w, h, filter, qual, fps, fileName){
+        let addFilter = [];
+        if (filter) addFilter=['-filter:v', filter];
         return [
             '-s', String(w)+'x'+String(h),
+            ...addFilter,
             '-r', String(fps),
             '-qscale', String(qual),
             '-preset', 'veryfast',
@@ -138,9 +142,9 @@ function spawnFFMPEG(formats){
     let outputArgs=[];
     for (const format of formats){
         if (format.type==='hls'){
-            outputArgs=[...outputArgs, ...buildArgs(format.w, format.h, format.qual, format.fps, format.block, format.file)];
+            outputArgs=[...outputArgs, ...buildArgs(format.w, format.h, format.filter, format.qual, format.fps, format.block, format.file)];
         }else if (format.type==='jpg'){
-            outputArgs=[...outputArgs, ...buildArgsJpg(format.w, format.h, format.qual, format.fps, format.file)];
+            outputArgs=[...outputArgs, ...buildArgsJpg(format.w, format.h, format.filter, format.qual, format.fps, format.file)];
         }
     }
     const args = [
