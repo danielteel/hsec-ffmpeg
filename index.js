@@ -95,7 +95,6 @@ function spawnFFMPEG(formats){
         if (typeof filter==='string' && filter.trim().length!==0) addFilter=['-filter:v', filter];
         return [
             '-s', String(w)+'x'+String(h),
-            '-fflags', 'nobuffer',
             '-pix_fmt', 'yuv420p',
             ...addFilter,
             '-r', String(fps),
@@ -115,9 +114,8 @@ function spawnFFMPEG(formats){
         if (typeof filter==='string' && filter.trim().length!==0) addFilter=['-filter:v', filter];
         return [
             '-s', String(w)+'x'+String(h),
-            '-fflags', 'nobuffer',
             ...addFilter,
-            //'-r', String(fps),
+            '-r', String(fps),
             '-qscale', String(qual),
             '-preset', 'ultrafast',
             '-tune', 'zerolatency',
@@ -151,6 +149,7 @@ function spawnFFMPEG(formats){
     }
     const args = [
         '-loglevel', 'error',
+        '-fflags', 'nobuffer',
         '-i', process.env.FFMPEG_INPUT,
         ...outputArgs,
     ]
