@@ -96,7 +96,7 @@ function spawnFFMPEG(formats){
             '-vf', 'format=yuv420p',
             '-r', String(fps),
             '-g', String(fps*blockSeconds),
-            '-c:v', 'libx264',
+            '-c:v', 'copy',
             '-crf', String(qual),
             '-preset', 'veryfast',
             '-tune', 'zerolatency',
