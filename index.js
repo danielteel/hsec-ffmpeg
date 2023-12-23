@@ -96,7 +96,7 @@ function spawnFFMPEG(formats){
             '-vf', 'format=yuv420p',
             '-r', String(fps),
             '-g', String(fps*blockSeconds),
-            //'-c:v', 'copy',
+            '-c:v', 'libx264',
             '-crf', String(qual),
             '-preset', 'veryfast',
             '-tune', 'zerolatency',
@@ -142,7 +142,6 @@ function spawnFFMPEG(formats){
         }
     }
     const args = [
-        '-input_format', 'mjpeg',
         '-i', process.env.FFMPEG_INPUT,
         ...outputArgs,
     ]
