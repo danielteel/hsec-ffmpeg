@@ -155,6 +155,7 @@ function spawnFFMPEG(formats){
         '-max_delay','0',
         '-max_probe_packets', '1',
         '-loglevel', 'error',
+        '-re',
         '-i', process.env.FFMPEG_INPUT,
         ...outputArgs,
     ]
