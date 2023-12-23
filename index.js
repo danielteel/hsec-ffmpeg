@@ -119,7 +119,7 @@ function spawnFFMPEG(formats){
         return [
             '-s', String(w)+'x'+String(h),
             '-muxdelay','0',
-            '-fflags', '+nobuffer',
+            '-fflags', 'nobuffer',
             ...addFilter,
             '-rc-lookahead:v','0',
             '-bf', '0',
