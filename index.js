@@ -151,7 +151,8 @@ function spawnFFMPEG(formats){
     }
     const args = [
         '-max_delay','0',
-        '-muxdelay','0',
+        //'-max_probe_packets', '1',
+        //'-muxdelay','0',
         '-loglevel', 'error',
         '-i', process.env.FFMPEG_INPUT,
         ...outputArgs,
