@@ -115,7 +115,7 @@ function spawnFFMPEG(formats){
         let addFilter = [];
         if (typeof filter==='string' && filter.trim().length!==0) addFilter=['-filter:v', filter];
         return [
-            '-s', String(w)+'x'+String(h),
+           // '-s', String(w)+'x'+String(h),
             '-muxdelay','0',
             '-fflags', '+nobuffer',
             ...addFilter,
