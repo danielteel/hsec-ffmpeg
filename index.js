@@ -104,6 +104,7 @@ function spawnFFMPEG(formats){
             '-crf', String(qual),
             '-preset', 'ultrafast',
             '-tune:v', 'zerolatency',
+            '-frame_drop_threshold', '1.0',
             '-hls_time', String(blockSeconds),
             '-hls_list_size', '2',
             '-hls_flags', 'delete_segments',
@@ -122,6 +123,7 @@ function spawnFFMPEG(formats){
             '-qscale', String(qual),
             '-preset', 'ultrafast',
             '-tune:v', 'zerolatency',
+            '-frame_drop_threshold', '1.0',
             '-y',
             '-update', '1',
             process.env.CAM_DIR+fileName
