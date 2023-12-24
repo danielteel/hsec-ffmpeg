@@ -1,6 +1,7 @@
 const { connect, waitForTableToExist } = require('./database');
 const fs = require('node:fs');
 const {spawn, execSync} = require('node:child_process');
+const os = require('node:os'); 
 const express=require('express');
 const cors = require('cors');
 
@@ -161,6 +162,7 @@ function spawnFFMPEG(formats){
         ...outputArgs,
     ]
     const child = spawn('ffmpeg', args);
+    os.setPriority(child.pid, os.constants.priority.PRIORITY_ABOVE_NORMAL);
 
     child.stderr.on('data', (data) => null);
     child.stdout.on('data', (data) => null);
