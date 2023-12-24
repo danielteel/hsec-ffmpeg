@@ -162,7 +162,7 @@ function spawnFFMPEG(formats){
         ...outputArgs,
     ]
     const child = spawn('ffmpeg', args);
-    os.setPriority(child.pid, os.constants.priority.PRIORITY_ABOVE_NORMAL);
+    os.setPriority(child.pid, 10);
 
     child.stderr.on('data', (data) => null);
     child.stdout.on('data', (data) => null);
